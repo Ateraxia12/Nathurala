@@ -1,25 +1,35 @@
+
+import imggProduc1 from '../images/Juicy.jpg';
+import imggProduc2 from '../images/Nature_Bills.jpg';
+
 export const products = [
   {
     id: 1,
-    nombre: 'Lavanda Francesa',
-    precio: 24.99,
-    imagen: 'https://images.pexels.com/photos/1434819/pexels-photo-1434819.jpeg?auto=compress&cs=tinysrgb&w=400',
-    descripcion: 'Aroma relajante de lavanda francesa premium. Perfecto para crear un ambiente de tranquilidad y serenidad.',
+    nombre: 'Juicy',
+    precio: 20000,
+    imagen: imggProduc1,
+    descripcion: ' Fragancia afrutada, refrescante y vibrante, Ideal para quienes buscan un aroma dulce y energizante en su ambiente',
     categoria: 'Relajante',
     intensidad: 'Media',
-    duracion: '6-8 horas',
-    notas: ['Lavanda', 'Hierba fresca', 'Toques florales']
+    duracion: '5-7 horas',
+    Presentación: ' Spray de 30 ml',
+    notas: [' Tropicales de mango', 'Piña', 'Limóm'],
+    Uso : 'Aplicar en el ambiente deseado.Pulveriza a 20 cm de distancia sobre ropa, cortinas, cojines o ambientes interiores.',
+    Ideal: ' Aromatizar espacios, ropa de cama o carro.'
   },
   {
     id: 2,
-    nombre: 'Vainilla Bourbon',
-    precio: 29.99,
-    imagen: 'https://images.pexels.com/photos/4040784/pexels-photo-4040784.jpeg?auto=compress&cs=tinysrgb&w=400',
-    descripcion: 'Dulce y cálido aroma de vainilla bourbon. Ideal para crear espacios acogedores y románticos.',
-    categoria: 'Dulce',
-    intensidad: 'Alta',
-    duracion: '8-10 horas',
-    notas: ['Vainilla', 'Caramelo', 'Madera suave']
+    nombre: ' Nature Bills',
+    precio: 20000,
+    imagen: imggProduc2,
+    descripcion: ' Una esencia con notas naturales de frutos secos y madera fresca, creando una atmósfera cálida, elegante y equilibrada',
+    categoria: 'Relajante',
+    intensidad: 'Media',
+    duracion: '5-7 horas',
+    Presentación: ' Spray de 30 ml',
+    notas: [' frutos secos', 'madera fresca'],
+    Uso : 'Aplicar en el ambiente deseado.Rocía en habitaciones, textiles o rincones del hogar.',
+    Ideal: ' Ambientes relajados y sofisticados.'
   },
   {
     id: 3,

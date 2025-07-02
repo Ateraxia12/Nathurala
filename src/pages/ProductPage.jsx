@@ -75,6 +75,13 @@ const ProductPage = () => {
                   <span className="attribute-value">{product.duracion}</span>
                 </div>
               </div>
+              <div className="attribute">
+                <Zap className="attribute-icon" />
+                <div>
+                <span className="attribute-label">Presentacíon</span>
+                <span className="attribute-value">{product.Presentación}</span>
+                </div>
+              </div>
             </div>
 
             <div className="product-notes">
@@ -86,9 +93,14 @@ const ProductPage = () => {
               </div>
             </div>
 
+            <h3>Uso:</h3>
+            <p className="product-description-full">{product.Uso}</p>
+            <h3>Ideal para: </h3>
+            <p className="product-description-full">{product.Ideal}</p>
+
             <div className="product-actions">
               <div className="price-section">
-                <span className="price">€{product.precio}</span>
+                <span className="price">COP {product.precio}</span>
                 <span className="price-label">Precio por unidad</span>
               </div>
               
