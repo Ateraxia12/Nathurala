@@ -1,48 +1,24 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import '../styles/auth.css';
 
 const CartPage = () => {
+  const navigate = useNavigate();
   const { cart, updateQuantity, removeFromCart, getTotalPrice, clearCart } = useCart();
 
-  const [nombre, setNombre] = useState('');
-  const [telefono, setTelefono] = useState('');
-  const [ciudad, setCiudad] = useState('');
+  const formatPrice = (price) => {
+    const numericPrice = parseFloat(price);
+    return isNaN(numericPrice) ? 0 : numericPrice;
+  };
 
-  const handleConfirmOrder = () => {
-    if (!nombre || !telefono || !ciudad) {
-      alert('Por favor completa todos los campos antes de confirmar el pedido.');
-      return;
-    }
-
-    const cartDetails = cart.map(item => {
-      const precio = parseFloat(item.precio) || 0;
-      const cantidad = parseInt(item.quantity) || 0;
-      const subtotal = precio * cantidad;
-      return `🔹 *${item.nombre}* (x${cantidad}) - COP ${subtotal.toLocaleString()}`;
-    }).join('\n');
-
-    const total = (parseFloat(getTotalPrice()) || 0).toLocaleString();
-
-    const message = `
-🛒 *Nuevo Pedido*
-
-👤 *Nombre:* ${nombre}
-📞 *Teléfono:* ${telefono}
-🏙️ *Ciudad:* ${ciudad}
-
-${cartDetails}
-
-💵 *Total a pagar:* COP ${total}
-🚚 *Método de pago:* Contra Entrega
-
-¡Gracias por tu compra! 😊
-    `;
-
-    const phoneNumber = '573104710120';
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+  const calculateTotal = () => {
+    return cart.reduce((total, item) => {
+      const itemPrice = formatPrice(item.precio);
+      const quantity = parseInt(item.quantity) || 0;
+      return total + (itemPrice * quantity);
+    }, 0);
   };
 
   if (cart.length === 0) {
@@ -60,6 +36,8 @@ ${cartDetails}
     );
   }
 
+  const total = calculateTotal();
+
   return (
     <div className="cart-page">
       <div className="container">
@@ -70,27 +48,33 @@ ${cartDetails}
 
         <div className="cart-content">
           <div className="cart-items">
-            {cart.map(item => (
-              <div key={item.id} className="cart-item">
-                <img src={item.imagen} alt={item.nombre} className="cart-item-image" />
-                <div className="cart-item-info">
-                  <h3>{item.nombre}</h3>
-                  <p>{item.categoria}</p>
-                  <div>COP {parseFloat(item.precio).toLocaleString()}</div>
-                </div>
+            {cart.map(item => {
+              const itemPrice = formatPrice(item.precio);
+              const quantity = parseInt(item.quantity) || 0;
+              const subtotal = itemPrice * quantity;
 
-                <div className="cart-item-controls">
-                  <button onClick={() => updateQuantity(item.id, Math.max(item.quantity - 1, 1))}><Minus /></button>
-                  <span>{item.quantity}</span>
-                  <button onClick={() => updateQuantity(item.id, item.quantity + 1)}><Plus /></button>
-                  <button onClick={() => removeFromCart(item.id)}><Trash2 /></button>
-                </div>
+              return (
+                <div key={item.id} className="cart-item">
+                  <img src={item.imagen} alt={item.nombre} className="cart-item-image" />
+                  <div className="cart-item-info">
+                    <h3>{item.nombre}</h3>
+                    <p>{item.categoria}</p>
+                    <div>COP {itemPrice.toLocaleString()}</div>
+                  </div>
 
-                <div className="cart-item-total">
-                  COP {(parseFloat(item.precio) * parseInt(item.quantity)).toLocaleString()}
+                  <div className="cart-item-controls">
+                    <button onClick={() => updateQuantity(item.id, Math.max(quantity - 1, 1))}><Minus /></button>
+                    <span>{quantity}</span>
+                    <button onClick={() => updateQuantity(item.id, quantity + 1)}><Plus /></button>
+                    <button onClick={() => removeFromCart(item.id)}><Trash2 /></button>
+                  </div>
+
+                  <div className="cart-item-total">
+                    COP {subtotal.toLocaleString()}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="cart-summary">
@@ -99,7 +83,7 @@ ${cartDetails}
 
               <div className="summary-line">
                 <span>Subtotal</span>
-                <span>COP {(parseFloat(getTotalPrice()) || 0).toLocaleString()}</span>
+                <span>COP {total.toLocaleString()}</span>
               </div>
 
               <div className="summary-line">
@@ -109,30 +93,11 @@ ${cartDetails}
 
               <div className="summary-line total">
                 <span>Total</span>
-                <span>COP {(parseFloat(getTotalPrice()) || 0).toLocaleString()}</span>
+                <span>COP {total.toLocaleString()}</span>
               </div>
 
-              <input
-                type="text"
-                placeholder="Ingresa tu nombre"
-                value={nombre}
-                onChange={e => setNombre(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Ingresa tu teléfono"
-                value={telefono}
-                onChange={e => setTelefono(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Ingresa tu ciudad"
-                value={ciudad}
-                onChange={e => setCiudad(e.target.value)}
-              />
-
-              <button onClick={handleConfirmOrder} className="checkout-btn">
-                Confirmar pedido por WhatsApp
+              <button onClick={() => navigate('/checkout')} className="auth-button">
+                Proceder al pago
               </button>
 
               <Link to="/" className="continue-shopping">Continuar comprando</Link>

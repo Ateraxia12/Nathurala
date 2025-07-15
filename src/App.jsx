@@ -10,6 +10,7 @@ import CartPage from './pages/CartPage';
 import AboutPage from './pages/AboutPage';
 import Login from './components/Login';
 import Register from './components/Register';
+import CheckoutPage from './pages/CheckoutPage';
 import './styles/global.css';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
               <Route path="/nosotros" element={<AboutPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/registro" element={<Register />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
             </Routes>
           </main>
           <Footer />
