@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Phone, MapPin } from 'lucide-react';
+import { User, Phone, MapPin, Home } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import '../styles/auth.css';
+
+const CIUDADES_COLOMBIA = [
+  'Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena',
+  'Cúcuta', 'Bucaramanga', 'Pereira', 'Santa Marta', 'Ibagué',
+  'Pasto', 'Manizales', 'Neiva', 'Villavicencio', 'Armenia','Calarca',
+  'Valledupar', 'Montería', 'Sincelejo', 'Popayán', 'Tunja'
+].sort();
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -11,6 +18,8 @@ const CheckoutPage = () => {
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');
   const [ciudad, setCiudad] = useState('');
+  const [direccion, setDireccion] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formatPrice = (price) => {
     const numericPrice = parseFloat(price);
@@ -25,11 +34,23 @@ const CheckoutPage = () => {
     }, 0);
   };
 
+  const formatPhoneNumber = (phone) => {
+    const cleanNumber = phone.replace(/\D/g, '');
+    return cleanNumber.startsWith('57') ? cleanNumber : `57${cleanNumber}`;
+  };
+
   const handleConfirmOrder = () => {
-    if (!nombre || !telefono || !ciudad) {
+    if (!nombre || !telefono || !ciudad || !direccion) {
       alert('Por favor completa todos los campos antes de confirmar el pedido.');
       return;
     }
+
+    if (telefono.length < 10) {
+      alert('Por favor ingresa un número de teléfono válido (mínimo 10 dígitos).');
+      return;
+    }
+
+    setIsSubmitting(true);
 
     const cartDetails = cart.map(item => {
       const precio = formatPrice(item.precio);
@@ -46,6 +67,7 @@ const CheckoutPage = () => {
 👤 *Nombre:* ${nombre}
 📞 *Teléfono:* ${telefono}
 🏙️ *Ciudad:* ${ciudad}
+🏠 *Dirección:* ${direccion}
 
 ${cartDetails}
 
@@ -55,9 +77,13 @@ ${cartDetails}
 ¡Gracias por tu compra! 😊
     `;
 
-    const phoneNumber = '573104710120';
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    const formattedPhone = formatPhoneNumber(telefono);
+    const url = `https://wa.me/${formattedPhone}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
+    
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 2000);
   };
 
   if (cart.length === 0) {
@@ -102,6 +128,7 @@ ${cartDetails}
                 value={nombre}
                 onChange={e => setNombre(e.target.value)}
                 required
+                disabled={isSubmitting}
               />
             </div>
 
@@ -109,27 +136,53 @@ ${cartDetails}
               <Phone className="input-icon" />
               <input
                 type="tel"
-                placeholder="Número de teléfono"
+                placeholder="Número de teléfono (10 dígitos)"
                 value={telefono}
                 onChange={e => setTelefono(e.target.value)}
                 required
+                disabled={isSubmitting}
+                pattern="[0-9]*"
+                minLength="10"
+                maxLength="10"
               />
             </div>
 
             <div className="input-group">
               <MapPin className="input-icon" />
-              <input
-                type="text"
-                placeholder="Ciudad de entrega"
+              <select
                 value={ciudad}
                 onChange={e => setCiudad(e.target.value)}
                 required
+                disabled={isSubmitting}
+                className="auth-select"
+              >
+                <option value="">Selecciona tu ciudad</option>
+                {CIUDADES_COLOMBIA.map(ciudad => (
+                  <option key={ciudad} value={ciudad}>{ciudad}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="input-group">
+              <Home className="input-icon" />
+              <input
+                type="text"
+                placeholder="Dirección de residencia"
+                value={direccion}
+                onChange={e => setDireccion(e.target.value)}
+                required
+                disabled={isSubmitting}
               />
             </div>
           </div>
 
-          <button type="button" onClick={handleConfirmOrder} className="auth-button">
-            Confirmar pedido por WhatsApp
+          <button 
+            type="button" 
+            onClick={handleConfirmOrder} 
+            className="auth-button"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Enviando...' : 'Confirmar pedido por WhatsApp'}
           </button>
         </form>
       </div>
