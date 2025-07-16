@@ -77,8 +77,8 @@ ${cartDetails}
 ¡Gracias por tu compra! 😊
     `;
 
-    const formattedPhone = formatPhoneNumber(telefono);
-    const url = `https://wa.me/${formattedPhone}?text=${encodeURIComponent(message)}`;
+    const adminPhone = '573104710120';
+    const url = `https://wa.me/${adminPhone}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
     
     setTimeout(() => {
