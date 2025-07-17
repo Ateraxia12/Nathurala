@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingCart, Menu, X, Sparkles, UserCircle } from 'lucide-react';
+import { ShoppingCart, Menu, X, UserCircle } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import logoImage from '../images/LogoNathurala.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,7 +21,7 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <Link to="/" className="logo">
-          <Sparkles className="logo-icon" />
+          <img src={logoImage} alt="Nathurala Logo" className="logo-icon" />
           <span className="logo-text">Nathurala</span>
         </Link>
 
