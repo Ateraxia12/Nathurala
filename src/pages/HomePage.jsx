@@ -1,7 +1,9 @@
+// src/pages/HomePage.jsx
 import React, { useState, useMemo } from 'react';
 import { Search, Filter } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import { products, categorias } from '../data/products';
+import ApiComponent from '../ApiComponent'; // Asegúrate de que la ruta sea correcta
 
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,7 +15,7 @@ const HomePage = () => {
       const matchesSearch = product.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            product.descripcion.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory = selectedCategory === 'Todos' || product.categoria === selectedCategory;
-      
+
       return matchesSearch && matchesCategory;
     });
 
@@ -35,11 +37,11 @@ const HomePage = () => {
       <section className="hero">
         <div className="hero-content">
           <h1 className="hero-title">
-            Descubre el Mundo de los 
+            Descubre el Mundo de los
             <span className="hero-highlight"> Aromas Premium</span>
           </h1>
           <p className="hero-description">
-            Transforma tu espacio con nuestra selección exclusiva de fragancias 
+            Transforma tu espacio con nuestra selección exclusiva de fragancias
             cuidadosamente seleccionadas de todo el mundo
           </p>
           <div className="hero-stats">
@@ -117,6 +119,9 @@ const HomePage = () => {
               <p>No se encontraron productos que coincidan con tu búsqueda.</p>
             </div>
           )}
+
+          {/* Incluir ApiComponent */}
+          <ApiComponent />
         </div>
       </section>
     </div>

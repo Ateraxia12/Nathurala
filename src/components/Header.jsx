@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { ShoppingCart, Menu, X, UserCircle } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ShoppingCart, Menu, X, UserCircle, LogOut, User } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import logoImage from '../images/LogoNathurala.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { getTotalItems } = useCart();
+  const { isAuthenticated, logout, user } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navigationItems = [
     { name: 'Inicio', path: '/' },
@@ -16,6 +19,12 @@ const Header = () => {
   ];
 
   const isActive = (path) => location.pathname === path;
+
+  const handleLogout = () => {
+    logout();
+    setIsMenuOpen(false);
+    navigate('/');
+  };
 
   return (
     <header className="header">
@@ -36,35 +45,74 @@ const Header = () => {
               {item.name}
             </Link>
           ))}
+          
+          {/* Botones de autenticación para móvil */}
           <div className="mobile-auth-buttons">
-            <Link 
-              to="/login" 
-              className="mobile-auth-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <UserCircle className="auth-icon" />
-              <span>Iniciar Sesión</span>
-            </Link>
-            <Link 
-              to="/registro" 
-              className="mobile-auth-link"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <UserCircle className="auth-icon" />
-              <span>Registrarse</span>
-            </Link>
+            {isAuthenticated() ? (
+              <>
+                <div className="mobile-user-info">
+                  <User className="auth-icon" />
+                  <span>Bienvenido, {user?.email?.split('@')[0]}</span>
+                </div>
+                <button 
+                  onClick={handleLogout}
+                  className="mobile-auth-link logout-btn"
+                >
+                  <LogOut className="auth-icon" />
+                  <span>Cerrar Sesión</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <Link 
+                  to="/login" 
+                  className="mobile-auth-link"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <UserCircle className="auth-icon" />
+                  <span>Iniciar Sesión</span>
+                </Link>
+                <Link 
+                  to="/registro" 
+                  className="mobile-auth-link"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <UserCircle className="auth-icon" />
+                  <span>Registrarse</span>
+                </Link>
+              </>
+            )}
           </div>
         </nav>
 
         <div className="header-actions">
+          {/* Botones de autenticación para desktop */}
           <div className="auth-buttons">
-            <Link to="/login" className="auth-button login">
-              <UserCircle className="auth-icon" />
-              <span>Iniciar Sesión</span>
-            </Link>
-            <Link to="/registro" className="auth-button register">
-              <span>Registrarse</span>
-            </Link>
+            {isAuthenticated() ? (
+              <>
+                <div className="user-info">
+                  <User className="auth-icon" />
+                  <span>Hola, {user?.email?.split('@')[0]}</span>
+                </div>
+                <button 
+                  onClick={handleLogout}
+                  className="auth-button logout"
+                >
+                  <LogOut className="auth-icon" />
+                  <span>Cerrar Sesión</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="auth-button login">
+                  <UserCircle className="auth-icon" />
+                  <span>Iniciar Sesión</span>
+                </Link>
+                <Link to="/registro" className="auth-button register">
+                  <span>Registrarse</span>
+                </Link>
+              </>
+            )}
           </div>
 
           <Link to="/carrito" className="cart-button">

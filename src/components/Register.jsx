@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { User, Mail, Lock } from 'lucide-react';
 import '../styles/auth.css';
 
@@ -10,10 +10,38 @@ const Register = () => {
     password: '',
     confirmPassword: ''
   });
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí iría la lógica de registro
+    if (formData.password !== formData.confirmPassword) {
+      setError('Las contraseñas no coinciden');
+      return;
+    }
+    try {
+      const response = await fetch('http://localhost:3000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nombre_completo: formData.name,
+          email: formData.email,
+          password: formData.password
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setSuccessMessage('Registro exitoso. Revisa tu correo para confirmar tu cuenta.');
+        setError('');
+      } else {
+        setError(data.error);
+      }
+    } catch (error) {
+      setError('Error al registrarse');
+    }
   };
 
   const handleChange = (e) => {
@@ -93,6 +121,9 @@ const Register = () => {
             Crear Cuenta
           </button>
         </form>
+
+        {error && <p className="error-message">{error}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
 
         <p className="auth-footer">
           ¿Ya tienes una cuenta?

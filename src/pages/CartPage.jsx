@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
+import { Minus, Plus, Trash2, ShoppingBag, UserCircle, LogIn } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import '../styles/auth.css';
 
 const CartPage = () => {
   const navigate = useNavigate();
   const { cart, updateQuantity, removeFromCart, getTotalPrice, clearCart } = useCart();
+  const { isAuthenticated } = useAuth();
 
   const formatPrice = (price) => {
     const numericPrice = parseFloat(price);
@@ -20,6 +22,46 @@ const CartPage = () => {
       return total + (itemPrice * quantity);
     }, 0);
   };
+
+  // Mostrar mensaje de autenticación si no está logueado
+  if (!isAuthenticated()) {
+    return (
+      <div className="cart-page">
+        <div className="container">
+          <div className="auth-required">
+            <UserCircle className="auth-required-icon" />
+            <h2>Inicia sesión para ver tu carrito</h2>
+            <p>Para continuar con tu compra y gestionar tu carrito, necesitas tener una cuenta en Nathurala</p>
+            
+            <div className="auth-required-actions">
+              <Link to="/login" className="btn-primary">
+                <LogIn className="btn-icon" />
+                Iniciar Sesión
+              </Link>
+              <Link to="/registro" className="btn-secondary">
+                <UserCircle className="btn-icon" />
+                Crear Cuenta
+              </Link>
+            </div>
+            
+            <div className="auth-required-benefits">
+              <h3>¿Por qué crear una cuenta?</h3>
+              <ul>
+                <li>✓ Guarda tus productos favoritos</li>
+                <li>✓ Historial de compras</li>
+                <li>✓ Ofertas exclusivas</li>
+                <li>✓ Proceso de compra más rápido</li>
+              </ul>
+            </div>
+
+            <Link to="/" className="continue-shopping">
+              ← Continuar explorando productos
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (cart.length === 0) {
     return (

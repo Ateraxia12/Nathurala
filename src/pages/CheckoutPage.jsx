@@ -1,25 +1,57 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { User, Phone, MapPin, Home } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { User, Phone, MapPin, Home, UserCircle, LogIn } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import '../styles/auth.css';
 
 const CIUDADES_COLOMBIA = [
   'Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena',
   'Cúcuta', 'Bucaramanga', 'Pereira', 'Santa Marta', 'Ibagué',
-  'Pasto', 'Manizales', 'Neiva', 'Villavicencio', 'Armenia','Calarca',
+  'Pasto', 'Manizales', 'Neiva', 'Villavicencio', 'Armenia', 'Calarca',
   'Valledupar', 'Montería', 'Sincelejo', 'Popayán', 'Tunja'
 ].sort();
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
   const { cart } = useCart();
+  const { isAuthenticated, user } = useAuth(); // Obtener el usuario autenticado
   
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');
   const [ciudad, setCiudad] = useState('');
   const [direccion, setDireccion] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Verificar autenticación
+  if (!isAuthenticated()) {
+    return (
+      <div className="auth-container">
+        <div className="auth-card">
+          <div className="auth-required">
+            <UserCircle className="auth-required-icon" />
+            <h2>Inicia sesión para continuar</h2>
+            <p>Para proceder con el checkout, necesitas estar autenticado en Nathurala</p>
+            
+            <div className="auth-required-actions">
+              <Link to="/login" className="btn-primary">
+                <LogIn className="btn-icon" />
+                Iniciar Sesión
+              </Link>
+              <Link to="/registro" className="btn-secondary">
+                <UserCircle className="btn-icon" />
+                Crear Cuenta
+              </Link>
+            </div>
+
+            <Link to="/carrito" className="continue-shopping">
+              ← Volver al carrito
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const formatPrice = (price) => {
     const numericPrice = parseFloat(price);
@@ -65,6 +97,7 @@ const CheckoutPage = () => {
 🛒 *Nuevo Pedido*
 
 👤 *Nombre:* ${nombre}
+📧 *Correo:* ${user?.email || 'No disponible'} 
 📞 *Teléfono:* ${telefono}
 🏙️ *Ciudad:* ${ciudad}
 🏠 *Dirección:* ${direccion}

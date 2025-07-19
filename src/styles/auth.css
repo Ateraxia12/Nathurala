@@ -77,6 +77,11 @@
   color: #b8a082;
 }
 
+.input-group input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
 .form-options {
   display: flex;
   justify-content: space-between;
@@ -89,17 +94,11 @@
   align-items: center;
   gap: 0.5rem;
   color: #7d5a3a;
+  cursor: pointer;
 }
 
-.checkbox-group.terms {
-  margin-top: -0.5rem;
-}
-
-.checkbox-group input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  border: 1px solid #e8e2d1;
-  border-radius: 4px;
+.checkbox-group input:disabled {
+  cursor: not-allowed;
 }
 
 .forgot-password {
@@ -113,19 +112,67 @@
 }
 
 .auth-button {
-  background-color: #b8860b;
-  color: white;
+  width: 100%;
   padding: 12px;
+  background: linear-gradient(135deg, #b8860b, #daa520);
+  color: white;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-.auth-button:hover {
-  background-color: #9a7209;
+.auth-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #9a7209, #b8860b);
+  transform: translateY(-1px);
+}
+
+.auth-button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.error-message {
+  color: #dc3545;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  font-size: 0.875rem;
+}
+
+.success-message {
+  color: #155724;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 8px;
+  font-size: 0.875rem;
 }
 
 .auth-footer {
@@ -137,8 +184,8 @@
 .auth-link {
   color: #b8860b;
   text-decoration: none;
-  margin-left: 0.5rem;
   font-weight: 600;
+  margin-left: 0.5rem;
   transition: color 0.3s ease;
 }
 
@@ -146,19 +193,27 @@
   color: #9a7209;
 }
 
+.terms {
+  font-size: 0.875rem;
+  color: #7d5a3a;
+}
+
+.terms input {
+  margin-right: 0.5rem;
+}
+
+/* Responsive */
 @media (max-width: 480px) {
+  .auth-container {
+    padding: 10px;
+  }
+  
   .auth-card {
     padding: 1.5rem;
   }
-
+  
   .auth-header h2 {
     font-size: 1.75rem;
-  }
-
-  .form-options {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: flex-start;
   }
 }
 

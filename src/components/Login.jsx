@@ -1,15 +1,37 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Mail, Lock } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Mail, Lock, Loader } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 import '../styles/auth.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí iría la lógica de inicio de sesión
+    setError('');
+    setIsLoading(true);
+
+    try {
+      const result = await login(email, password);
+      
+      if (result.success) {
+        console.log('Login exitoso:', result.user);
+        navigate('/');
+      } else {
+        setError(result.error || 'Error al iniciar sesión');
+      }
+    } catch (error) {
+      console.error('Error en login:', error);
+      setError('Error de conexión. Intenta nuevamente.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -30,6 +52,7 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Correo electrónico"
                 required
+                disabled={isLoading}
               />
             </div>
 
@@ -41,22 +64,32 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Contraseña"
                 required
+                disabled={isLoading}
               />
             </div>
           </div>
 
           <div className="form-options">
             <label className="checkbox-group">
-              <input type="checkbox" />
+              <input type="checkbox" disabled={isLoading} />
               <span>Recordarme</span>
             </label>
             <a href="#" className="forgot-password">¿Olvidaste tu contraseña?</a>
           </div>
 
-          <button type="submit" className="auth-button">
-            Iniciar Sesión
+          <button type="submit" className="auth-button" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                <Loader className="auth-icon spinning" />
+                Iniciando sesión...
+              </>
+            ) : (
+              'Iniciar Sesión'
+            )}
           </button>
         </form>
+
+        {error && <p className="error-message">{error}</p>}
 
         <p className="auth-footer">
           ¿No tienes una cuenta?
