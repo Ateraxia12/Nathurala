@@ -104,7 +104,6 @@ body {
 }
 
 /* Header */
-/* Header */
 .header {
   background: rgba(254, 252, 247, 0.98);
   border-bottom: 1px solid var(--beige-200);
@@ -117,22 +116,22 @@ body {
 .header-container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 var(--spacing-md);
+  padding: 0 var(--spacing-lg); /* Mayor padding para separar del borde */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
-  flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas pequeñas */
+  height: 80px; /* Header más grande */
+  flex-wrap: wrap;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md); /* Mayor separación entre logo y texto */
   text-decoration: none;
   color: var(--primary);
   font-weight: 700;
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-xl); /* Nombre más grande */
   transition: var(--transition-fast);
 }
 
@@ -141,7 +140,7 @@ body {
 }
 
 .logo-icon {
-  width: 36px;
+  width: 48px; /* Logo más grande */
   height: auto;
 }
 
@@ -188,7 +187,7 @@ body {
   gap: var(--spacing-xs);
   text-decoration: none;
   height: 36px;
-  min-width: 100px; /* Tamaño mínimo para mejor legibilidad */
+  min-width: 100px;
   padding: 0 var(--spacing-md);
   border-radius: 6px;
   font-weight: 500;
@@ -277,41 +276,47 @@ body {
 /* Responsive Design */
 @media (max-width: 1024px) {
   .header-container {
-    height: auto; /* Permitir altura dinámica */
-    padding: var(--spacing-sm) var(--spacing-md);
+    height: auto; /* Altura dinámica */
+    padding: 0 var(--spacing-md); /* Reducir padding */
+  }
+
+  .logo {
+    font-size: var(--font-size-lg); /* Reducir tamaño del nombre */
+    gap: var(--spacing-sm);
   }
 
   .logo-icon {
-    width: 32px; /* Reducir tamaño del logo en tablet */
+    width: 40px; /* Reducir tamaño del logo */
   }
 
   .nav {
-    gap: var(--spacing-md); /* Reducir espacio entre enlaces */
+    gap: var(--spacing-md);
   }
 
   .auth-button {
-    min-width: 80px; /* Ajustar tamaño de botones */
+    min-width: 80px;
     padding: 0 var(--spacing-sm);
   }
 }
 
 @media (max-width: 768px) {
   .header-container {
-    padding: var(--spacing-sm);
-    min-height: 56px; /* Altura más compacta para móviles */
+    padding: 0 var(--spacing-md); /* Mantener separación del borde */
+    min-height: 64px; /* Header más pequeño pero más grande que original */
   }
 
   .logo {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-md); /* Ajustar tamaño del nombre */
+    gap: var(--spacing-sm);
   }
 
   .logo-icon {
-    width: 28px;
+    width: 36px; /* Ajustar tamaño del logo */
   }
 
   .nav {
     position: fixed;
-    top: 56px;
+    top: 64px;
     left: 0;
     right: 0;
     background: var(--cream);
@@ -342,14 +347,14 @@ body {
   .nav.nav-open .auth-button {
     width: 100%;
     justify-content: center;
-    height: 44px; /* Objetivo táctil más grande */
+    height: 44px;
     font-size: var(--font-size-md);
     padding: var(--spacing-sm) var(--spacing-lg);
   }
 
   .menu-toggle {
     display: block;
-    padding: var(--spacing-md); /* Mayor área táctil */
+    padding: var(--spacing-md);
   }
 
   .auth-buttons {
@@ -361,7 +366,7 @@ body {
   }
 
   .cart-button {
-    padding: var(--spacing-md); /* Mayor área táctil */
+    padding: var(--spacing-md);
   }
 
   .cart-icon {
@@ -372,16 +377,17 @@ body {
 
 @media (max-width: 480px) {
   .header-container {
-    padding: var(--spacing-xs);
-    min-height: 48px;
+    padding: 0 var(--spacing-sm); /* Reducir separación del borde */
+    min-height: 56px;
   }
 
   .logo {
     font-size: var(--font-size-sm);
+    gap: var(--spacing-xs);
   }
 
   .logo-icon {
-    width: 24px;
+    width: 32px;
   }
 
   .menu-toggle {
@@ -400,15 +406,17 @@ body {
 
 @media (max-width: 360px) {
   .header-container {
-    padding: 0 0.25rem;
+    padding: 0 0.5rem; /* Mayor separación que 0.25rem para evitar que toque el borde */
+    min-height: 48px;
   }
 
   .logo {
     font-size: var(--font-size-xs);
+    gap: var(--spacing-xs);
   }
 
   .logo-icon {
-    width: 20px;
+    width: 28px;
   }
 
   .menu-toggle {
