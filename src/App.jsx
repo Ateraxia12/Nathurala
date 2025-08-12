@@ -1,6 +1,6 @@
 // src/App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import Header from './components/Header';
@@ -18,6 +18,7 @@ import './styles/global.css';
 import ApiComponent from './ApiComponent';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import UserManagement from './pages/admin/UserManagement';
+import ProductManagement from './pages/admin/ProductManagement';
 import { useAuth } from './context/AuthContext';
 
 // Componente para proteger rutas de administrador
@@ -64,6 +65,11 @@ function App() {
                 <Route path="/admin/users" element={
                   <AdminRoute>
                     <UserManagement />
+                  </AdminRoute>
+                } />
+                <Route path="/admin/products" element={
+                  <AdminRoute>
+                    <ProductManagement />
                   </AdminRoute>
                 } />
               </Routes>
