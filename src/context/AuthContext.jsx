@@ -211,12 +211,22 @@ export const AuthProvider = ({ children }) => {
     return !!user && !!user.token;
   }, [user]);
 
+  const isAdmin = useCallback(() => {
+    return user && user.role === 'admin';
+  }, [user]);
+
+  const isClient = useCallback(() => {
+    return user && user.role === 'cliente';
+  }, [user]);
+
   const value = {
     user,
     isLoading,
     login,
     logout,
     isAuthenticated,
+    isAdmin,
+    isClient,
     syncAuthState,
     refreshToken: () => user?.token ? refreshToken(user.token) : Promise.resolve()
   };

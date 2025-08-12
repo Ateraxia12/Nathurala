@@ -1,0 +1,771 @@
+/* ==========================================================================
+   Estilos para el Panel de Administración
+   ========================================================================== */
+
+/* Header del Panel de Administración */
+.admin-header {
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-soft));
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+  padding: 1.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  height: 150px;
+}
+
+.admin-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23aaaaaa10"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center right 20px;
+  background-size: 80px;
+  opacity: 0.1;
+}
+
+.admin-header-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+  text-shadow: none;
+}
+
+.admin-header .btn-back {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #333;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-header .btn-back:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.admin-header .btn-back:active {
+  transform: translateY(0);
+}
+
+.admin-header .btn-back svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Filtros y Controles */
+.admin-controls {
+  background-color: var(--beige-50);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.admin-controls .form-control,
+.admin-controls .form-select {
+  border: 1px solid var(--beige-200);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  background-color: white;
+  transition: all 0.2s ease;
+}
+
+.admin-controls .form-control:focus,
+.admin-controls .form-select:focus {
+  border-color: var(--primary-soft);
+  box-shadow: 0 0 0 3px rgba(120, 120, 120, 0.1);
+}
+
+.admin-controls .form-control::placeholder {
+  color: var(--beige-400);
+}
+
+/* Tabla de Datos */
+.admin-table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.admin-table .table {
+  margin-bottom: 0;
+}
+
+.admin-table thead {
+  background: linear-gradient(90deg, var(--beige-200), var(--beige-300));
+  color: #333;
+}
+
+.admin-table th {
+  font-weight: 600;
+  padding: 1rem;
+  border-bottom: none;
+}
+
+.admin-table tbody tr:hover {
+  background-color: var(--beige-50);
+}
+
+.admin-table td {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+/* Badges para roles mejorados */
+.role-badge {
+  padding: 0.4rem 0.8rem 0.4rem 0.6rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.role-badge svg {
+  width: 14px;
+  height: 14px;
+}
+
+.role-badge.admin {
+  background-color: #dc3545;
+  color: white;
+}
+
+.role-badge.cliente {
+  background-color: #28a745;
+  color: white;
+}
+
+.role-badge.observador {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.role-badge-text {
+  margin-left: 0.2rem;
+}
+
+/* Botones de acción */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-buttons .btn {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  border-radius: 4px;
+}
+
+/* Input con iconos */
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper .input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #b8a082;
+  margin-right: 15px;
+}
+
+.input-wrapper input.with-icon {
+  width: 100%;
+  padding: 12px 12px 12px 55px;
+  border: 1px solid #e8e2d1;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #3f2a1a;
+  transition: all 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-header {
+    padding: 1.25rem;
+  }
+  
+  .admin-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .admin-controls {
+    padding: 1rem;
+  }
+  
+  .admin-controls .col-md-6:first-child {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Tarjetas de estadísticas */
+.admin-stats-card {
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.admin-stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.admin-stats-card .card-body {
+  padding: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.admin-stats-card .card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+.admin-stats-card .card-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.admin-stats-card .card-icon {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  opacity: 0.2;
+  font-size: 3rem;
+}
+
+.admin-stats-card .btn {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: inherit;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.admin-stats-card .btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.admin-stats-card.users {
+  background: linear-gradient(135deg, #a5b4fc, #e0e7ff);
+  color: #333;
+}
+
+.admin-stats-card.products {
+  background: linear-gradient(135deg, #a7f3d0, #ecfdf5);
+  color: #333;
+}
+
+.admin-stats-card.orders {
+  background: linear-gradient(135deg, #bae6fd, #f0f9ff);
+  color: #333;
+}
+
+.admin-stats-card.revenue {
+  background: linear-gradient(135deg, #fed7aa, #fff7ed);
+  color: #333;
+}
+
+/* Filtros de roles */
+.role-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.role-filter-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  background-color: var(--beige-100);
+  color: var(--beige-700);
+}
+
+.role-filter-btn:hover {
+  background-color: var(--beige-200);
+}
+
+.role-filter-btn.active {
+  background-color: var(--primary-light);
+  color: white;
+  border-color: var(--primary-dark);
+}
+
+.role-filter-btn.all.active {
+  background-color: var(--beige-700);
+  color: white;
+}
+
+.role-filter-btn.admin.active {
+  background-color: #dc3545;
+  color: white;
+}
+
+.role-filter-btn.cliente.active {
+  background-color: #28a745;
+  color: white;
+}
+
+.role-filter-btn.observador.active {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.role-filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: inherit;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.7rem;
+  margin-left: 0.5rem;
+}
+
+/* Estilos para el modal de gestión de correos de administradores */
+.admin-emails-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.admin-emails-modal-content {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-emails-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #eee;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-soft));
+  color: #333;
+  border-radius: 8px 8px 0 0;
+}
+
+.admin-emails-modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.close-modal-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.close-modal-btn:hover {
+  opacity: 1;
+}
+
+.admin-emails-modal-body {
+  padding: 1.5rem;
+}
+
+.admin-emails-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.admin-email-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border-left: 3px solid var(--primary);
+}
+
+.remove-email-btn {
+  background: none;
+  border: none;
+  color: #dc3545;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.remove-email-btn:hover {
+  opacity: 1;
+}
+
+.add-email-form {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.add-email-form input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+  font-size: 0.9rem;
+}
+
+.add-email-form input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.1);
+}
+
+.add-email-btn {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-email-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+.admin-emails-modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.admin-emails-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.admin-emails-btn:hover {
+  background-color: #e0a800;
+}
+
+.admin-emails-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Estilos para el modal de edición de usuarios */
+.edit-user-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.edit-user-modal-content {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+.edit-user-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #eee;
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  border-radius: 8px 8px 0 0;
+}
+
+.edit-user-modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.edit-user-modal-body {
+  padding: 1.5rem;
+}
+
+.edit-user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #555;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.edit-user-modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.edit-user-modal-footer button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.cancel-edit-btn {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  color: #555;
+}
+
+.cancel-edit-btn:hover {
+  background-color: #e9ecef;
+}
+
+.save-edit-btn {
+  background-color: #28a745;
+  border: none;
+  color: white;
+}
+
+.save-edit-btn:hover {
+  background-color: #218838;
+}
+
+/* Estilos para el modal de confirmación de eliminación */
+.delete-confirm-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.delete-confirm-modal-content {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 400px;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+.delete-confirm-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #eee;
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+  border-radius: 8px 8px 0 0;
+}
+
+.delete-confirm-modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.delete-confirm-modal-body {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.delete-confirm-modal-body p {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #555;
+}
+
+.delete-confirm-modal-body .user-email {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.delete-confirm-modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.cancel-delete-btn {
+  padding: 0.5rem 1rem;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  color: #555;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.cancel-delete-btn:hover {
+  background-color: #e9ecef;
+}
+
+.confirm-delete-btn {
+  padding: 0.5rem 1rem;
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.confirm-delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* Estilos responsivos para los modales */
+@media (max-width: 768px) {
+  .admin-emails-modal-content,
+  .edit-user-modal-content,
+  .delete-confirm-modal-content {
+    width: 95%;
+    max-width: none;
+  }
+  
+  .add-email-form {
+    flex-direction: column;
+  }
+  
+  .add-email-form input {
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .add-email-btn {
+    border-radius: 4px;
+  }
+  
+  .edit-user-modal-footer,
+  .delete-confirm-modal-footer {
+    flex-direction: column;
+  }
+  
+  .edit-user-modal-footer button,
+  .delete-confirm-modal-footer button {
+    width: 100%;
+  }
+}
