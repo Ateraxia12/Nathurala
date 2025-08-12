@@ -56,12 +56,12 @@
   width: 20px;
   height: 20px;
   color: #b8a082;
-  margin-left: 10px;
-
+  transition: opacity 0.3s ease;
 }
 
 .input-group input {
   width: 100%;
+  padding: 12px 12px 12px 40px;
   border: 1px solid #e8e2d1;
   border-radius: 8px;
   font-size: 1rem;
@@ -73,6 +73,11 @@
   outline: none;
   border-color: #b8860b;
   box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.1);
+}
+
+.input-group input:not(:placeholder-shown) ~ .input-icon,
+.input-group input:focus ~ .input-icon {
+  opacity: 0;
 }
 
 .input-group input::placeholder {

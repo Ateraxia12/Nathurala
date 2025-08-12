@@ -45,7 +45,6 @@ const Login = () => {
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
             <div className="input-group">
-              <Mail className="input-icon" />
               <input
                 type="email"
                 value={email}
@@ -54,10 +53,10 @@ const Login = () => {
                 required
                 disabled={isLoading}
               />
+              <Mail className="input-icon" />
             </div>
 
             <div className="input-group">
-              <Lock className="input-icon" />
               <input
                 type="password"
                 value={password}
@@ -66,6 +65,7 @@ const Login = () => {
                 required
                 disabled={isLoading}
               />
+              <Lock className="input-icon" />
             </div>
           </div>
 

@@ -193,13 +193,19 @@
   height: 20px;
   color: #b8a082;
   margin-right: 15px;
+  transition: opacity 0.3s ease;
 }
 
 .input-wrapper input.with-icon {
   width: 100%;
-  padding: 12px 12px 12px 55px;
+  padding: 12px 12px 12px 40px;
   border: 1px solid #e8e2d1;
   border-radius: 8px;
+}
+
+.input-wrapper input.with-icon:not(:placeholder-shown) ~ .input-icon,
+.input-wrapper input.with-icon:focus ~ .input-icon {
+  opacity: 0;
   font-size: 1rem;
   color: #3f2a1a;
   transition: all 0.3s ease;

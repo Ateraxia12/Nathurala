@@ -154,7 +154,6 @@ ${cartDetails}
         <form className="auth-form">
           <div className="form-group">
             <div className="input-group">
-              <User className="input-icon" />
               <input
                 type="text"
                 placeholder="Nombre completo"
@@ -163,10 +162,10 @@ ${cartDetails}
                 required
                 disabled={isSubmitting}
               />
+              <User className="input-icon" />
             </div>
 
             <div className="input-group">
-              <Phone className="input-icon" />
               <input
                 type="tel"
                 placeholder="Número de teléfono (10 dígitos)"
@@ -178,10 +177,10 @@ ${cartDetails}
                 minLength="10"
                 maxLength="10"
               />
+              <Phone className="input-icon" />
             </div>
 
             <div className="input-group">
-              <MapPin className="input-icon" />
               <select
                 value={ciudad}
                 onChange={e => setCiudad(e.target.value)}
@@ -189,6 +188,7 @@ ${cartDetails}
                 disabled={isSubmitting}
                 className="auth-select"
               >
+              <MapPin className="input-icon" />
                 <option value="">Selecciona tu ciudad</option>
                 {CIUDADES_COLOMBIA.map(ciudad => (
                   <option key={ciudad} value={ciudad}>{ciudad}</option>
@@ -197,7 +197,6 @@ ${cartDetails}
             </div>
 
             <div className="input-group">
-              <Home className="input-icon" />
               <input
                 type="text"
                 placeholder="Dirección de residencia"
@@ -206,6 +205,7 @@ ${cartDetails}
                 required
                 disabled={isSubmitting}
               />
+              <Home className="input-icon" />
             </div>
           </div>
 

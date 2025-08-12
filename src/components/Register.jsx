@@ -62,7 +62,6 @@ const Register = () => {
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
             <div className="input-group">
-              <User className="input-icon" />
               <input
                 type="text"
                 name="name"
@@ -71,10 +70,10 @@ const Register = () => {
                 placeholder="Nombre completo"
                 required
               />
+              <User className="input-icon" />
             </div>
 
             <div className="input-group">
-              <Mail className="input-icon" />
               <input
                 type="email"
                 name="email"
@@ -83,10 +82,10 @@ const Register = () => {
                 placeholder="Correo electrónico"
                 required
               />
+              <Mail className="input-icon" />
             </div>
 
             <div className="input-group">
-              <Lock className="input-icon" />
               <input
                 type="password"
                 name="password"
@@ -95,10 +94,10 @@ const Register = () => {
                 placeholder="Contraseña"
                 required
               />
+              <Lock className="input-icon" />
             </div>
 
             <div className="input-group">
-              <Lock className="input-icon" />
               <input
                 type="password"
                 name="confirmPassword"
@@ -107,6 +106,7 @@ const Register = () => {
                 placeholder="Confirmar contraseña"
                 required
               />
+              <Lock className="input-icon" />
             </div>
           </div>
 
